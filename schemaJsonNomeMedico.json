@@ -16,8 +16,8 @@
           "name": {
             "description": "Definisce il nome di battesimo dell'oggetto della credenziale",
             type: "string"
-          }, 
-          
+          }
+        },
         "required": [
           "surname",
           "name",
@@ -26,3 +26,6 @@
     }
   }
 }
+
+  
+  
