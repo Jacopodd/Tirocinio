@@ -5,50 +5,56 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "Identificatore univoco della credenziale"
+      "description": "Identificatore univoco della prescrizione"
     },
     "issuer": {
-      "type": "string",
-      "description": "Entità che ha emesso la credenziale"
+      "type": "object",
+      "properties": {
+        "nomeMedico": { "type": "string" },
+        "numeroRegistrazioneMedica": { "type": "string" },
+        "autoritaLicenza": { "type": "string" }
+      },
+      "description": "Informazioni sul medico curante",
+      "required": ["nomeMedico", "numeroRegistrazioneMedica", "autoritaLicenza"]
     },
     "subject": {
-      "type": "string",
-      "description": "Soggetto della credenziale"
-    },
-    "issuedAt": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Data e ora di emissione della credenziale"
-    },
-    "expirationDate": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Data di scadenza della credenziale"
-    },
-    "credentialType": {
-      "type": "string",
-      "description": "Tipo di credenziale (es. 'Prescrizione Medica Elettronica')"
-    },
-    "credentialData": {
       "type": "object",
-      "description": "Dati specifici della credenziale",
       "properties": {
-        "farmaci": {
+        "nome": { "type": "string" },
+        "codiceFiscale": { "type": "string" }
+      },
+      "description": "Informazioni sul paziente",
+      "required": ["nome", "codiceFiscale"]
+    },
+    "prescrizione": {
+      "type": "object",
+      "properties": {
+        "idPrescrizione": { "type": "string" },
+        "farmaciPrescritti": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "nome": { "type": "string" },
+              "nomeFarmaco": { "type": "string" },
               "dosaggio": { "type": "string" }
             },
-            "required": ["nome", "dosaggio"]
+            "required": ["nomeFarmaco", "dosaggio"]
           },
           "description": "Elenco dei farmaci prescritti",
           "minItems": 1
+        },
+        "dataEmissione": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dataScadenza": {
+          "type": "string",
+          "format": "date-time"
         }
       },
-      "required": ["farmaci"]
+      "description": "Informazioni sulla prescrizione della ricetta",
+      "required": ["idPrescrizione", "farmaciPrescritti", "dataEmissione"]
     }
   },
-  "required": ["id", "issuer", "subject", "issuedAt", "credentialType", "credentialData"]
+  "required": ["id", "issuer", "subject", "prescrizione"]
 }
